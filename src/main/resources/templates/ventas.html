@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Listado de Ventas | Micromercado</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">Historial de Ventas</h2>
+        <a th:href="@{/ventas/nueva}" class="btn btn-success">+ Registrar Nueva Venta</a>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success text-center" role="alert">
+        <span th:text="${success}">Mensaje</span>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th>Fecha</th>
+                    <th>Vendedor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="venta : ${ventas}" class="text-center">
+                    <td th:text="${venta.producto.nombre}">Producto</td>
+                    <td th:text="${venta.cantidad}">0</td>
+                    <td th:text="${venta.total}">0.0</td>
+                    <td th:text="${venta.fecha?.format(T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy HH:mm'))}">Fecha</td>
+                    <td th:text="${venta.vendedor.nombre}">Vendedor</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(ventas)}" class="text-center">
+                    <td colspan="5" class="text-muted">No hay ventas registradas aún.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4 text-center">
+        <a th:href="@{/dashboard}" class="btn btn-secondary">Volver al Panel</a>
+    </div>
+</div>
+
+</body>
+</html>
+

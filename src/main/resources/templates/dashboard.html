@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark px-4">
+    <span class="navbar-brand">Micromercado</span>
+    <form th:action="@{/logout}" method="post">
+        <button class="btn btn-outline-light">Cerrar sesión</button>
+    </form>
+</nav>
+
+<div class="container mt-4">
+    <h3 class="mb-4">Panel Principal</h3>
+
+    <div class="row g-4">
+
+        <!-- ADMINISTRADOR -->
+        <div class="col-md-4" sec:authorize="hasRole('ADMINISTRADOR')">
+            <div class="card text-bg-primary h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Gestión de Productos</h5>
+                    <p class="card-text">Agregar, editar y visualizar productos.</p>
+                    <a th:href="@{/productos}" class="btn btn-light">Ir</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- VENDEDOR -->
+        <div class="col-md-4" sec:authorize="hasRole('VENDEDOR')">
+            <div class="card text-bg-success h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Registrar Ventas</h5>
+                    <p class="card-text">Accede al módulo de ventas.</p>
+                    <a th:href="@{/ventas}" class="btn btn-light">Ir</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- INVENTARIO -->
+        <div class="col-md-4" sec:authorize="hasRole('INVENTARIO')">
+            <div class="card text-bg-warning h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Control de Inventario</h5>
+                    <p class="card-text">Revisar y actualizar existencias.</p>
+                    <a th:href="@{/productos/inventario}" class="btn btn-dark">Ir</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CLIENTE -->
+        <div class="col-md-4" sec:authorize="hasRole('CLIENTE')">
+            <div class="card text-bg-info h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Ver Productos</h5>
+                    <p class="card-text">Explora lo disponible.</p>
+                    <a th:href="@{/productos}" class="btn btn-light">Ver</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUDITOR -->
+        <div class="col-md-4" sec:authorize="hasRole('AUDITOR')">
+            <div class="card text-bg-secondary h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Informes de Auditoría</h5>
+                    <p class="card-text">Consultar historial de movimientos.</p>
+                    <a th:href="@{/auditoria}" class="btn btn-light">Ver Reportes</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

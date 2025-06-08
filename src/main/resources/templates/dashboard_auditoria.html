@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Auditoría | Micromercado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            padding: 1.5rem;
+        }
+        .sidebar a {
+            color: #ffffffcc;
+            text-decoration: none;
+            display: block;
+            margin: 1rem 0;
+        }
+        .sidebar a:hover {
+            color: #fff;
+            font-weight: bold;
+        }
+        .main {
+            flex-grow: 1;
+            padding: 2rem;
+        }
+        .header {
+            background-color: #ffffff;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Barra lateral -->
+<div class="sidebar">
+    <h4>Micromercado</h4>
+    <hr class="bg-light">
+    <a href="/dashboard">Inicio</a>
+    <a href="/logout">Cerrar Sesión</a>
+</div>
+
+<!-- Contenido principal -->
+<div class="main">
+    <div class="header">
+        <h3>Panel de Auditoría</h3>
+        <p class="text-muted">Registros recientes del sistema</p>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            Informes Generados
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Fecha y Hora</th>
+                        <th>Usuario</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="informe : ${informes}">
+                        <td th:text="${#temporals.format(informe.fechaHora, 'dd/MM/yyyy HH:mm')}"></td>
+                        <td th:text="${informe.usuario}"></td>
+                        <td th:text="${informe.accion}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
